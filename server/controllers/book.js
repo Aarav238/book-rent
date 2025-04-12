@@ -136,4 +136,28 @@ export const addBook = async (req, res) => {
       res.status(500).json({ msg: "Error deleting book", error: err.message });
     }
   };
+
+
+  export const updateBookStatus = async (req, res) => {
+    try {
+      const { status, owner } = req.body;
+      const book = await Book.findById(req.params.id);
+  
+      if (!book) {
+        return res.status(404).json({ msg: "Book not found" });
+      }
+  
+      if (book.owner.toString() !== owner) {
+        return res.status(403).json({ msg: "Not authorized to update this book" });
+      }
+  
+      book.status = status;
+      await book.save();
+  
+      res.status(200).json({ msg: "Book status updated", book });
+    } catch (err) {
+      res.status(500).json({ msg: "Error updating book status", error: err.message });
+    }
+  };
+  
   
