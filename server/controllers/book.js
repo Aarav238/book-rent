@@ -40,19 +40,44 @@ export const addBook = async (req, res) => {
 
   export const getAllBooks = async (req, res) => {
     try {
-      const { genre } = req.query;
+      const { genre ,location} = req.query;
       let query = {};
   
       if (genre) {
         query.genre = new RegExp(genre, "i"); // case-insensitive search
       }
   
+      if (location) {
+        query.location = new RegExp(location, "i"); // case-insensitive search
+      }
       const books = await Book.find(query).populate("owner", "name email");
       res.status(200).json(books);
     } catch (err) {
       res.status(500).json({ msg: "Error fetching books", error: err.message });
     }
   };
+
+
+  export const getBooksByUser = async (req, res) => {
+    try {
+      const { userId } = req.params;
+  
+      // Validate user existence
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ msg: "User not found" });
+      }
+  
+      // Fetch all books by the user
+      const books = await Book.find({ owner: userId }).populate("owner", "name email");
+  
+      res.status(200).json({ books });
+    } catch (err) {
+      res.status(500).json({ msg: "Error fetching user's books", error: err.message });
+    }
+  };
+
+  
 
   export const getBookById = async (req, res) => {
     try {
@@ -93,7 +118,7 @@ export const addBook = async (req, res) => {
       }
       
       // Compare string representations - book.ownerId is an ObjectId, ownerId is a string
-      if (book._doc.owner.toString()!== owner) {
+      if (book._doc.owner.toString()!== owner._id) {
         return res.status(403).json({ msg: "Not authorized to edit this book" });
       }
   
