@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-
-const User = require('./models/User.js');
-const Book = require('./models/Book.js');
+import mongoose from 'mongoose';
+import User from './models/User.js';
+import Book from './models/Book.js';
 
 // Connect to MongoDB
 mongoose.connect("mongodb://aarav8090shukla:aaravshukla@ac-hjbo9qp-shard-00-00.v3ldv70.mongodb.net:27017,ac-hjbo9qp-shard-00-01.v3ldv70.mongodb.net:27017,ac-hjbo9qp-shard-00-02.v3ldv70.mongodb.net:27017/?replicaSet=atlas-11v1ng-shard-0&ssl=true&authSource=admin").then(() => {
@@ -37,7 +36,7 @@ async function seedData() {
         location: "Mumbai",
         contact: "alchemist.owner@example.com",
         status: "Available",
-        ownerId: users[0]._id,
+        owner: users[0]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/71aFt4+OTOL.jpg"
       },
       {
@@ -47,7 +46,7 @@ async function seedData() {
         location: "Delhi",
         contact: "atomic.owner@example.com",
         status: "Available",
-        ownerId: users[1]._id,
+        owner: users[1]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg"
       },
       {
@@ -57,7 +56,7 @@ async function seedData() {
         location: "Bangalore",
         contact: "sapiens.owner@example.com",
         status: "Rented",
-        ownerId: users[2]._id,
+        owner: users[2]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/713jIoMO3UL.jpg"
       },
       {
@@ -67,7 +66,7 @@ async function seedData() {
         location: "Kolkata",
         contact: "orwell.owner@example.com",
         status: "Available",
-        ownerId: users[3]._id,
+        owner: users[3]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/81AYCp2Z8tL.jpg"
       },
       {
@@ -77,7 +76,7 @@ async function seedData() {
         location: "Hyderabad",
         contact: "deep.owner@example.com",
         status: "Exchanged",
-        ownerId: users[0]._id,
+        owner: users[0]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/81fHA3yeNXL.jpg"
       },
       {
@@ -87,7 +86,7 @@ async function seedData() {
         location: "Chennai",
         contact: "ikigai.owner@example.com",
         status: "Available",
-        ownerId: users[1]._id,
+        owner: users[1]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/81QpkIctqPL.jpg"
       },
       {
@@ -97,7 +96,7 @@ async function seedData() {
         location: "Pune",
         contact: "now.owner@example.com",
         status: "Available",
-        ownerId: users[4]._id,
+        owner: users[4]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/71sBtM3Yi5L.jpg"
       },
       {
@@ -107,7 +106,7 @@ async function seedData() {
         location: "Ahmedabad",
         contact: "finance.owner@example.com",
         status: "Rented",
-        ownerId: users[5]._id,
+        owner: users[5]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/71XzF1k-c5L.jpg"
       },
       {
@@ -117,7 +116,7 @@ async function seedData() {
         location: "Lucknow",
         contact: "mockingbird.owner@example.com",
         status: "Available",
-        ownerId: users[6]._id,
+        owner: users[6]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/81OdwZ23HXL.jpg"
       },
       {
@@ -127,7 +126,7 @@ async function seedData() {
         location: "Indore",
         contact: "subtle.owner@example.com",
         status: "Exchanged",
-        ownerId: users[7]._id,
+        owner: users[7]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg"
       },
       {
@@ -137,7 +136,7 @@ async function seedData() {
         location: "Noida",
         contact: "money.owner@example.com",
         status: "Available",
-        ownerId: users[2]._id,
+        owner: users[2]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/71g2ednj0JL.jpg"
       },
       {
@@ -147,7 +146,7 @@ async function seedData() {
         location: "Jaipur",
         contact: "goggins.owner@example.com",
         status: "Rented",
-        ownerId: users[3]._id,
+        owner: users[3]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/81fV5JRYTbL.jpg"
       },
       {
@@ -157,7 +156,7 @@ async function seedData() {
         location: "Kanpur",
         contact: "wings.owner@example.com",
         status: "Available",
-        ownerId: users[4]._id,
+        owner: users[4]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/81YF6x8c-3L.jpg"
       },
       {
@@ -167,7 +166,7 @@ async function seedData() {
         location: "Bhopal",
         contact: "thinking.owner@example.com",
         status: "Exchanged",
-        ownerId: users[5]._id,
+        owner: users[5]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/71wZpJ-eYAL.jpg"
       },
       {
@@ -177,7 +176,7 @@ async function seedData() {
         location: "Gurgaon",
         contact: "lean.owner@example.com",
         status: "Available",
-        ownerId: users[6]._id,
+        owner: users[6]._id,
         coverImage: "https://images-na.ssl-images-amazon.com/images/I/81-QB7nDh4L.jpg"
       }
     ];
