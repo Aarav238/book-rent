@@ -85,7 +85,7 @@ npm run dev
 ### 📚 Book Listings
 - Add Book (Owner only)
 - View All Books (public)
-- Filter by Genre (optional)
+- Filter by Genre and Location
 - View Book by ID
 - Edit/Delete Book (only by owner)
 - Status Toggle (Available / Rented)
@@ -118,17 +118,15 @@ npm run dev
 
 ## 🚧 What’s Not (Yet)
 
-- ❌ Profile page or update info
 - ❌ Book request or direct messaging
 - ❌ Image upload (only URL allowed)
-- ❌ Deployment
 
 ---
 
 ## 🌟 Bonus Features Added
 
 - Edit/Delete your own listings
-- Genre-based filtering
+- Genre and Locationbased filtering
 - Book availability status toggle
 - Real book cover images
 - MongoDB-based persistence
@@ -138,9 +136,8 @@ npm run dev
 
 ## 🤖 AI Tools Used
 
-- **ChatGPT**: Used for backend planning, schema design, code refactoring, and README generation.
-- **GitHub Copilot**: Autocompletion in frontend form handling and validations.
-- **Mockaroo** / Manual: Book mock data generation with real cover image links.
+- **ChatGPT**: Used as a planning assistant to brainstorm schema design, improve data modeling strategies, and validate architectural decisions. Also helpful for generating concise documentation and refining API contract structures.
+- **Cluade**: Utilized for organizing project structure, validating code quality, and maintaining a clean, consistent codebase. Assisted in preparing readable documentation and polishing the README for better communication. 
 
 ---
 
@@ -160,7 +157,7 @@ npm run dev
 │   │   ├── login
 │   │   ├── signup
 │   │   ├── dashboard
-│   └── .env.local
+│   
 ```
 
 ---
