@@ -145,19 +145,62 @@ npm run dev
 
 ```
 📦 book-connect
-├── backend
-│   ├── controllers
-│   ├── models
-│   ├── routes
-│   ├── seed.js
-│   ├── .env
-│   └── server.js
+├── server
+├── config
+│   └── db.js
+├── controllers
+│   ├── auth.js
+│   └── book.js
+├── index.js
+├── models
+│   ├── Book.js
+│   └── User.js
+├── package-lock.json
+├── package.json
+├── routes
+│   ├── auth.js
+│   └── book.js
+└── seed.js
 ├── frontend
-│   ├── app
-│   │   ├── login
-│   │   ├── signup
-│   │   ├── dashboard
-│   
+├── app
+│   ├── add-book
+│   │   └── page.js
+│   ├── books
+│   │   └── [id]
+│   │       └── page.js
+│   ├── components
+│   │   ├── BookCard.js
+│   │   ├── FilterBar.js
+│   │   └── Navbar.js
+│   ├── context
+│   │   └── AuthContext.js
+│   ├── dashboard
+│   │   └── page.js
+│   ├── edit-book
+│   │   └── [id]
+│   │       └── page.js
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.js
+│   ├── login
+│   │   └── page.js
+│   ├── page.js
+│   ├── register
+│   │   └── page.js
+│   └── services
+│       └── bookService.js
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+└── public
+    ├── file.svg
+    ├── globe.svg
+    ├── next.svg
+    ├── vercel.svg
+    └── window.svg
 ```
 
 ---
