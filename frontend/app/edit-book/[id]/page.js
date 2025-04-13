@@ -27,40 +27,6 @@ export default function EditBook({ params }) {
     owner: user?._id
   });
 
-  // Fetch book data
-  // useEffect(() => {
-  //   const fetchBookData = async () => {
-  //     if (!isAuthenticated) {
-  //       router.push('/login');
-  //       return;
-  //     }
-
-  //     try {
-  //       const response = await fetch(`http://localhost:5000/api/book/${id}`);
-        
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch book data');
-  //       }
-        
-  //       const data = await response.json();
-        
-  //       // Verify ownership
-  //       if (user?.role === 'Owner' && data.owner._id !== user._id) {
-  //         router.push('/dashboard');
-  //         return;
-  //       }
-        
-  //       setBookData(data);
-  //     } catch (err) {
-  //       console.error('Error fetching book:', err);
-  //       setError('Failed to load book data');
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchBookData();
-  // }, [id, isAuthenticated, user, router]);
   useEffect(() => {
     const fetchBookData = async () => {
       // Don't redirect if still loading authentication state
@@ -74,7 +40,7 @@ export default function EditBook({ params }) {
       // Only proceed with the fetch if authentication is complete and user is logged in
       if (isAuthenticated) {
         try {
-          const response = await fetch(`http://localhost:5000/api/book/${id}`);
+          const response = await fetch(`https://book-rent-o321.onrender.com/api/book/${id}`);
           
           if (!response.ok) {
             throw new Error('Failed to fetch book data');
@@ -115,7 +81,7 @@ export default function EditBook({ params }) {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/book/${id}`, {
+      const response = await fetch(`https://book-rent-o321.onrender.com/api/book/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

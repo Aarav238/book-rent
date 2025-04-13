@@ -58,14 +58,14 @@ export default function AddBook() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/book/addBook', {
+      const response = await fetch('https://book-rent-o321.onrender.com/api/book/addBook', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...bookData,
-          ownerId: user._id
+          owner: user._id
         }),
       });
 
@@ -218,7 +218,7 @@ export default function AddBook() {
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Status
           </label>
-          <div className="flex items-center">
+          <div className="flex items-center text-gray-700">
             <input
               type="radio"
               id="available"

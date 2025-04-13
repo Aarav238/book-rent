@@ -19,7 +19,7 @@ export default function BookDetails({ params }) {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/book/${id}`);
+        const response = await fetch(`https://book-rent-o321.onrender.com/api/book/${id}`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch book details");
@@ -31,7 +31,7 @@ export default function BookDetails({ params }) {
         // Fetch owner information
         if (data.owner) {
           const ownerResponse = await fetch(
-            `http://localhost:5000/api/auth/profile/${data.owner._id}`
+            `https://book-rent-o321.onrender.com/api/auth/profile/${data.owner._id}`
           );
           if (ownerResponse.ok) {
             const ownerData = await ownerResponse.json();
@@ -57,7 +57,7 @@ export default function BookDetails({ params }) {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/book/${id}/request`,
+        `https://book-rent-o321.onrender.com/api/book/${id}/request`,
         {
           method: "POST",
           headers: {

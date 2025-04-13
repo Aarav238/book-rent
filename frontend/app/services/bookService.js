@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://book-rent-o321.onrender.com/api';
 
 export const getAllBooks = async (filterParams = {}) => {
   let url = `${API_URL}/book`;

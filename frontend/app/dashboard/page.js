@@ -30,9 +30,9 @@ export default function Dashboard() {
         setLoading(true);
         let url;
         if(user.role !== 'Owner') {
-            url = `http://localhost:5000/api/book`;
+            url = `https://book-rent-o321.onrender.com/api/book`;
         }else{
-            url = `http://localhost:5000/api/book/${user._id}/books`;
+            url = `https://book-rent-o321.onrender.com/api/book/${user._id}/books`;
         
         }
        
@@ -68,7 +68,7 @@ export default function Dashboard() {
     if (!confirm('Are you sure you want to delete this book?')) return;
     
     try {
-        const response = await fetch(`http://localhost:5000/api/book/${id}`, {
+        const response = await fetch(`https://book-rent-o321.onrender.com/api/book/${id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export default function Dashboard() {
 
   const handleToggleStatus = async (id, currentStatus) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/book/${id}/status`, {
+        const response = await fetch(`https://book-rent-o321.onrender.com/api/book/${id}/status`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json'
