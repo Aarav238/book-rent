@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function AddBook() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated , loading: authLoading } = useAuth();
   console.log(user);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -25,10 +25,12 @@ export default function AddBook() {
 
   // Check if user is authenticated and is an Owner
   useState(() => {
-    if (!isAuthenticated) {
-      router.push('/login');
-      return;
-    }
+    if (authLoading) return;
+
+      if (!isAuthenticated && !loading) {
+        router.push('/login');
+        return;
+      }
 
     if (user && user.role !== 'Owner') {
       router.push('/dashboard');
