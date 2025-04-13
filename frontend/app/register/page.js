@@ -60,7 +60,7 @@ export default function Register() {
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-300">
             Full Name
           </label>
           <input
@@ -75,7 +75,7 @@ export default function Register() {
         </div>
         
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300">
             Email
           </label>
           <input
@@ -90,7 +90,7 @@ export default function Register() {
         </div>
         
         <div>
-          <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="mobile" className="block text-sm font-medium text-gray-300">
             Mobile Number
           </label>
           <input
@@ -105,7 +105,7 @@ export default function Register() {
         </div>
         
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-300">
             Password
           </label>
           <input
@@ -120,7 +120,7 @@ export default function Register() {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-300">
             I want to:
           </label>
           <div className="mt-2 space-y-2">
@@ -134,7 +134,7 @@ export default function Register() {
                 onChange={handleChange}
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500"
               />
-              <label htmlFor="role-seeker" className="ml-3 block text-sm font-medium text-gray-700">
+              <label htmlFor="role-seeker" className="ml-3 block text-sm font-medium text-gray-300">
                 Browse books (Seeker)
               </label>
             </div>
@@ -148,7 +148,7 @@ export default function Register() {
                 onChange={handleChange}
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500"
               />
-              <label htmlFor="role-owner" className="ml-3 block text-sm font-medium text-gray-700">
+              <label htmlFor="role-owner" className="ml-3 block text-sm font-medium text-gray-300">
                 Share my books (Owner)
               </label>
             </div>

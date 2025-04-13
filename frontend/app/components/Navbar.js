@@ -2,17 +2,26 @@
 
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const dropdownButtonRef = useRef(null);
 
   // Close the dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownOpen) {
+      // Only close if clicking outside both the dropdown and its toggle button
+      if (
+        dropdownOpen && 
+        dropdownRef.current && 
+        !dropdownRef.current.contains(event.target) &&
+        dropdownButtonRef.current &&
+        !dropdownButtonRef.current.contains(event.target)
+      ) {
         setDropdownOpen(false);
       }
     };
@@ -36,6 +45,13 @@ const Navbar = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    logout();
+    setDropdownOpen(false);
+  };
 
   return (
     <nav className="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
@@ -91,7 +107,11 @@ const Navbar = () => {
                 {/* User Avatar / Role Button */}
                 <div className="relative">
                   <button
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    ref={dropdownButtonRef}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDropdownOpen(!dropdownOpen);
+                    }}
                     className="flex items-center gap-2 bg-blue-700 px-3 py-1 text-sm rounded-full hover:bg-blue-800 transition"
                   >
                     <span className="capitalize font-medium">{user?.role || 'User'}</span>
@@ -108,15 +128,18 @@ const Navbar = () => {
 
                   {/* Dropdown */}
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
+                    <div 
+                      ref={dropdownRef}
+                      className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50"
+                    >
                       <div className="px-4 py-2 text-sm">
                         <p className="font-medium">{user?.name || 'Guest User'}</p>
                         <p className="text-gray-500 text-xs">{user?.email}</p>
                       </div>
                       <hr className="my-1" />
                       <button
-                        onClick={logout}
-                        className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition"
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition cursor-pointer" 
                       >
                         Logout
                       </button>
@@ -175,8 +198,8 @@ const Navbar = () => {
                   </div>
 
                   <button
-                    onClick={() => {
-                      logout();
+                    onClick={(e) => {
+                      handleLogout(e);
                       setMobileMenuOpen(false);
                     }}
                     className="text-left px-4 py-2 hover:bg-blue-700 rounded flex items-center gap-2 transition"
