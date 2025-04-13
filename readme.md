@@ -144,63 +144,60 @@ npm run dev
 ## 📂 Folder Structure
 
 ```
-📦 book-connect
-├── server
-├── config
-│   └── db.js
-├── controllers
-│   ├── auth.js
-│   └── book.js
-├── index.js
-├── models
-│   ├── Book.js
-│   └── User.js
-├── package-lock.json
-├── package.json
-├── routes
-│   ├── auth.js
-│   └── book.js
-└── seed.js
-├── frontend
-├── app
-│   ├── add-book
+📦 book-rent
+├── 📁 server
+│   ├── 📁 config
+│   │   └── db.js
+│   ├── 📁 controllers
+│   │   ├── auth.js
+│   │   └── book.js
+│   ├── 📁 models
+│   │   ├── Book.js
+│   │   └── User.js
+│   ├── 📁 routes
+│   │   ├── auth.js
+│   │   └── book.js
+│   ├── seed.js
+│   ├── index.js
+│   ├── package.json
+│   └── package-lock.json
+│
+├── 📁 frontend
+│   ├── 📁 app
+│   │   ├── 📁 add-book
+│   │   │   └── page.js
+│   │   ├── 📁 books
+│   │   │   └── 📁 [id]
+│   │   │       └── page.js
+│   │   ├── 📁 components
+│   │   │   ├── BookCard.js
+│   │   │   ├── FilterBar.js
+│   │   │   └── Navbar.js
+│   │   ├── 📁 context
+│   │   │   └── AuthContext.js
+│   │   ├── 📁 dashboard
+│   │   │   └── page.js
+│   │   ├── 📁 edit-book
+│   │   │   └── 📁 [id]
+│   │   │       └── page.js
+│   │   ├── 📁 login
+│   │   │   └── page.js
+│   │   ├── 📁 register
+│   │   │   └── page.js
+│   │   ├── 📁 services
+│   │   │   └── bookService.js
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.js
 │   │   └── page.js
-│   ├── books
-│   │   └── [id]
-│   │       └── page.js
-│   ├── components
-│   │   ├── BookCard.js
-│   │   ├── FilterBar.js
-│   │   └── Navbar.js
-│   ├── context
-│   │   └── AuthContext.js
-│   ├── dashboard
-│   │   └── page.js
-│   ├── edit-book
-│   │   └── [id]
-│   │       └── page.js
-│   ├── favicon.ico
-│   ├── globals.css
-│   ├── layout.js
-│   ├── login
-│   │   └── page.js
-│   ├── page.js
-│   ├── register
-│   │   └── page.js
-│   └── services
-│       └── bookService.js
-├── eslint.config.mjs
-├── jsconfig.json
-├── next.config.mjs
-├── package-lock.json
-├── package.json
-├── postcss.config.mjs
-└── public
-    ├── file.svg
-    ├── globe.svg
-    ├── next.svg
-    ├── vercel.svg
-    └── window.svg
+│   ├── 📁 public
+│   ├── eslint.config.mjs
+│   ├── jsconfig.json
+│   ├── next.config.mjs
+│   ├── package.json
+│   ├── package-lock.json
+│   └── postcss.config.mjs
+
 ```
 
 ---
