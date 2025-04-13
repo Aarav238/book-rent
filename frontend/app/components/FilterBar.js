@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const FilterBar = ({ onFilterChange }) => {
-  const [genres, setGenres] = useState([
-    'Fiction', 'Non-fiction', 'Science Fiction', 'Fantasy', 
+  const [genres] = useState([
+    'Fiction', 'Non-fiction', 'Science Fiction', 'Fantasy',
     'Mystery', 'Thriller', 'Biography', 'History', 'Self-help'
   ]);
-  
+
   const [selectedGenre, setSelectedGenre] = useState('');
   const [location, setLocation] = useState('');
 
@@ -30,31 +30,50 @@ const FilterBar = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
-      <h2 className="text-lg font-semibold mb-4">Filter Books</h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+      <h2 className="text-xl font-semibold text-gray-800 mb-5">📚 Filter Books</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Genre Filter */}
         <div>
-          <label htmlFor="genre" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="genre" className="block text-sm font-medium text-gray-700 mb-1">
             Genre
           </label>
-          <select
-            id="genre"
-            value={selectedGenre}
-            onChange={handleGenreChange}
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">All Genres</option>
-            {genres.map((genre) => (
-              <option key={genre} value={genre}>
-                {genre}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+  <select
+    id="genre"
+    value={selectedGenre}
+    onChange={handleGenreChange}
+    className={`w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg appearance-none 
+      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition 
+      ${selectedGenre === '' ? 'text-gray-500' : 'text-gray-800'}`}
+  >
+    <option value="">All Genres</option>
+    {genres.map((genre) => (
+      <option key={genre} value={genre}>
+        {genre}
+      </option>
+    ))}
+  </select>
+
+  {/* Custom dropdown arrow */}
+  <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+    <svg
+      className="w-4 h-4 text-gray-500"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+</div>
         </div>
-        
+
+        {/* Location Filter */}
         <div>
-          <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
             Location
           </label>
           <input
@@ -62,18 +81,21 @@ const FilterBar = ({ onFilterChange }) => {
             id="location"
             value={location}
             onChange={handleLocationChange}
-            placeholder="Enter city or area"
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter city or country"
+            className="w-full px-4 py-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
           />
         </div>
       </div>
-      
-      <button
-        onClick={clearFilters}
-        className="mt-4 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-      >
-        Clear Filters
-      </button>
+
+      {/* Clear Button */}
+      <div className="mt-6 flex justify-end">
+        <button
+          onClick={clearFilters}
+          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 transition"
+        >
+          ✖ Clear Filters
+        </button>
+      </div>
     </div>
   );
 };

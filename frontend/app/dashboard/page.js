@@ -218,7 +218,7 @@ export default function Dashboard() {
                           book.status === 'available' 
                             ? 'bg-orange-500 hover:bg-orange-600' 
                             : 'bg-green-500 hover:bg-green-600'
-                        } text-white px-3 py-1 rounded-md text-sm`}
+                        } text-white px-3 py-1 rounded-md text-sm cursor-pointer`}
                       >
                         {book.status === 'Available' ? 'Mark as Borrowed' : 'Mark as Available'}
                       </button>
@@ -232,7 +232,7 @@ export default function Dashboard() {
                       
                       <button
                         onClick={() => handleDeleteBook(book._id)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"
+                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm cursor-pointer"
                       >
                         Delete
                       </button>
