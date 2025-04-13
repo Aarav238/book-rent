@@ -19,7 +19,7 @@ export default function AddBook() {
     contact: '',
     coverImage: '',
     status: 'available',
-    owner: user._id
+    owner: user?._id
 
   });
 
