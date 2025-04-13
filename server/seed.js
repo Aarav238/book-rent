@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
 import User from './models/User.js';
 import Book from './models/Book.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Connect to MongoDB
-mongoose.connect("mongodb://aarav8090shukla:aaravshukla@ac-hjbo9qp-shard-00-00.v3ldv70.mongodb.net:27017,ac-hjbo9qp-shard-00-01.v3ldv70.mongodb.net:27017,ac-hjbo9qp-shard-00-02.v3ldv70.mongodb.net:27017/?replicaSet=atlas-11v1ng-shard-0&ssl=true&authSource=admin").then(() => {
+mongoose.connect(process.env.MONGO_URI).then(() => {
   console.log('✅ MongoDB connected');
   seedData();
 }).catch((err) => {
