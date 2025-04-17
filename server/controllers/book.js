@@ -186,3 +186,33 @@ export const addBook = async (req, res) => {
   };
   
   
+
+  export const rentBook = async (req, res) => {
+    try {
+      const bookId = req.params.id;
+      const { rentedBy } = req.body;
+      console.log(rentedBy)
+  
+      const book = await Book.findById(bookId);
+      console.log(book)
+      if (!book) return res.status(404).json({ msg: "Book not found" });
+  
+      if (book.status === "Rented") {
+        return res.status(400).json({ msg: "Book is already rented" });
+      }
+  
+      const seeker = await User.findById(rentedBy);
+      console.log(seeker)
+      if (!seeker || seeker.role !== "Seeker") {
+        return res.status(403).json({ msg: "Only seekers can rent books" });
+      }
+  
+      book.status = "Rented";
+      book.rentedBy = rentedBy;
+      await book.save();
+  
+      res.status(200).json({ msg: "Book rented successfully", book });
+    } catch (err) {
+      res.status(500).json({ msg: "Error renting book", error: err.message });
+    }
+  };

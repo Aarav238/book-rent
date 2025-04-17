@@ -9,6 +9,9 @@ export default function BookDetails({ params }) {
   const resolvedParams = use(params);
   const { id } = resolvedParams;
   const { user } = useAuth();
+  console.log("book details user:" , user);
+  console.log("book details user:" , user?._id);
+  
   const [book, setBook] = useState(null);
   const [owner, setOwner] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -49,23 +52,23 @@ export default function BookDetails({ params }) {
     fetchBookDetails();
   }, [id]);
   console.log(owner);
-  const handleRequestBook = async () => {
+  const handleRenttBook = async () => {
     if (!user) {
-      // Redirect to login or show a prompt
+      Link.push("/login");
       return;
     }
 
     try {
       const response = await fetch(
-        `https://book-rent-o321.onrender.com/api/book/${id}/request`,
+        `http://localhost:5000/api/book/${book._id}/rent`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            seekerId: user._id,
-            message: `Hi, I'm interested in borrowing "${book.title}".`,
+            status: "Rented",
+            rentedBy: user?._id,
           }),
         }
       );
@@ -209,7 +212,7 @@ export default function BookDetails({ params }) {
               <div className="mt-6">
                 {requestSent ? (
                   <div className="bg-green-100 text-green-800 p-4 rounded-lg">
-                    <p className="font-medium">Request sent successfully!</p>
+                    <p className="font-medium">Rented successfully!!</p>
                     <p className="mt-2">
                       The owner has been notified of your interest. You can use
                       the contact information above to coordinate the exchange.
@@ -217,10 +220,10 @@ export default function BookDetails({ params }) {
                   </div>
                 ) : (
                   <button
-                    onClick={handleRequestBook}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                    onClick={handleRenttBook}
+                    className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
                   >
-                    Request to Borrow
+                    Rent this Book
                   </button>
                 )}
               </div>
@@ -254,10 +257,10 @@ export default function BookDetails({ params }) {
           genre.
         </p>
         <Link
-          href={`/search?genre=${encodeURIComponent(book.genre)}`}
+          href='/'
           className="mt-2 inline-block bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors"
         >
-          Browse {book.genre} Books
+          Browse Books
         </Link>
       </div>
     </div>
