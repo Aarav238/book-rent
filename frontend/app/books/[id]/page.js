@@ -60,7 +60,7 @@ export default function BookDetails({ params }) {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/book/${book._id}/rent`,
+        `https://book-rent-o321.onrender.com/api/book/${book._id}/rent`,
         {
           method: "PUT",
           headers: {
