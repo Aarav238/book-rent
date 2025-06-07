@@ -9,20 +9,24 @@ export default function BookDetails({ params }) {
   const resolvedParams = use(params);
   const { id } = resolvedParams;
   const { user } = useAuth();
-  console.log("book details user:" , user);
-  console.log("book details user:" , user?._id);
-  
+  console.log("book details user:", user);
+  console.log("book details user:", user?._id);
+
   const [book, setBook] = useState(null);
   const [owner, setOwner] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [requestSent, setRequestSent] = useState(false);
+  const [requestMessage, setRequestMessage] = useState("");
+  const [requesting, setRequesting] = useState(false);
+  const [requestStatus, setRequestStatus] = useState(null);
   const [showContactInfo, setShowContactInfo] = useState(true);
 
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await fetch(`https://book-rent-o321.onrender.com/api/book/${id}`);
+        const response = await fetch(
+          `https://book-rent-o321.onrender.com/api/book/${id}`
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch book details");
@@ -52,36 +56,81 @@ export default function BookDetails({ params }) {
     fetchBookDetails();
   }, [id]);
   console.log(owner);
-  const handleRenttBook = async () => {
+
+  // const handleRenttBook = async () => {
+  //   if (!user) {
+  //     Link.push("/login");
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch(
+  //       `https://book-rent-o321.onrender.com/api/book/${book._id}/rent`,
+  //       {
+  //         method: "PUT",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           status: "Rented",
+  //           rentedBy: user?._id,
+  //         }),
+  //       }
+  //     );
+
+  //     if (!response.ok) {
+  //       throw new Error("Failed to send request");
+  //     }
+
+  //     setRequestSent(true);
+  //     setShowContactInfo(true);
+  //   } catch (err) {
+  //     console.error("Error requesting book:", err);
+  //     setError("Failed to send request. Please try again.");
+  //   }
+  // };
+
+  const handleRequestBook = async (e) => {
+    e.preventDefault();
+
     if (!user) {
-      Link.push("/login");
+      window.location.href = "/login";
       return;
     }
 
     try {
-      const response = await fetch(
-        `https://book-rent-o321.onrender.com/api/book/${book._id}/rent`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            status: "Rented",
-            rentedBy: user?._id,
-          }),
-        }
-      );
+      setRequesting(true);
+      const response = await fetch("http://localhost:5000/api/book/request", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bookId: id,
+          seekerId: user._id,
+          message: requestMessage,
+        }),
+      });
+
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error("Failed to send request");
+        throw new Error(data.msg || "Failed to request book");
       }
 
-      setRequestSent(true);
-      setShowContactInfo(true);
-    } catch (err) {
-      console.error("Error requesting book:", err);
-      setError("Failed to send request. Please try again.");
+      setRequestStatus({
+        success: true,
+        message: "Request sent successfully! The owner will be notified.",
+      });
+      setRequestMessage("");
+    } catch (error) {
+      console.error("Error requesting book:", error);
+      setRequestStatus({
+        success: false,
+        message: error.message || "Failed to send request. Please try again.",
+      });
+    } finally {
+      setRequesting(false);
     }
   };
 
@@ -102,7 +151,7 @@ export default function BookDetails({ params }) {
         >
           <span className="block sm:inline">{error}</span>
         </div>
-        <Link href="/dashboard" >
+        <Link href="/dashboard">
           <span className="text-white">Back to Dashboard</span>
         </Link>
       </div>
@@ -209,24 +258,35 @@ export default function BookDetails({ params }) {
             )}
 
             {user && user.role === "Seeker" && book.status === "Available" && (
-              <div className="mt-6">
-                {requestSent ? (
-                  <div className="bg-green-100 text-green-800 p-4 rounded-lg">
-                    <p className="font-medium">Rented successfully!!</p>
-                    <p className="mt-2">
-                      The owner has been notified of your interest. You can use
-                      the contact information above to coordinate the exchange.
-                    </p>
-                  </div>
-                ) : (
-                  <button
-                    onClick={handleRenttBook}
-                    className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+              <form onSubmit={handleRequestBook} className="mt-6 space-y-4">
+                <textarea
+                  className="w-full p-3 border rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Write a message to the owner..."
+                  value={requestMessage}
+                  onChange={(e) => setRequestMessage(e.target.value)}
+                  required
+                ></textarea>
+
+                <button
+                  type="submit"
+                  disabled={requesting}
+                  className="w-full bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50"
+                >
+                  {requesting ? "Sending Request..." : "Request this Book"}
+                </button>
+
+                {requestStatus && (
+                  <div
+                    className={`p-4 rounded-lg ${
+                      requestStatus.success
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
                   >
-                    Rent this Book
-                  </button>
+                    {requestStatus.message}
+                  </div>
                 )}
-              </div>
+              </form>
             )}
 
             {(!user ||
@@ -257,7 +317,7 @@ export default function BookDetails({ params }) {
           genre.
         </p>
         <Link
-          href='/'
+          href="/"
           className="mt-2 inline-block bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors"
         >
           Browse Books
